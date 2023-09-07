@@ -57,7 +57,7 @@ public class VigenereCipher
             }
             if (keyword.length() == plaintext.length())
             {
-                break;
+                break; // break if keyword & plaintext are the same length
             }
             keyword += (keyword.charAt(i));
         }

@@ -1,18 +1,9 @@
-## Getting Started
+# Group Members
+Joyce Gill
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Description
+The programs "InteractiveCalculator.java" and "QuickCalculator.java" provide the users with two different ways to store and evaluate a function: by repeatedly reading in a line from the command line or asking the user to type one expression at the beginning. "BigFraction.java" creates a class BigFraction and contains the operations addition, subtraction, multiplication, and division. "BFCalculator.java" is the primary workhorse that contains the methods evaluate(String exp) which evaluates the given expression and store(char register) which stores the given number in the according register. 
 
-## Folder Structure
+## Resources
+StackOverflow - I used StackOverflow to look up the syntax of some Java methods and constructors
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).

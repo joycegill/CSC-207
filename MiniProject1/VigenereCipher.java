@@ -1,3 +1,5 @@
+package MiniProject1;
+
 import java.io.*;
 
 public class VigenereCipher 

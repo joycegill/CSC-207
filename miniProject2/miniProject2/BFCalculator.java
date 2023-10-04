@@ -4,13 +4,12 @@ import java.util.*;
 import java.math.*;
 import java.io.*;
 
-public class BFCalculator 
-{
-    BigFraction currentResult;
-    BigFraction[] registerList = new BigFraction[26];
+public class BFCalculator {
+  BigFraction currentResult;
+  BigFraction[] registerList = new BigFraction[26];
 
-    public BigFraction evaluate (String exp)
-    {
+  public BigFraction evaluate (String exp)
+  {
         PrintWriter pen = new PrintWriter(System.out, true);
         String input[] = exp.split(" ");
 
@@ -50,20 +49,17 @@ public class BFCalculator
             }
         }
         return (simplify(currentResult));
-    }
+  }
 
-
-    public BigFraction Operator(BigFraction fraction1, BigFraction fraction2, String operators)
-    {
+  public BigFraction Operator(BigFraction fraction1, BigFraction fraction2, String operators) {
         BigFraction result = null;
-        switch(operators)
-        {
+        switch (operators) {
             case "+":
                 result = fraction1.add(fraction2);
                 break;
 
             case "-":
-                 result = fraction1.subtract(fraction2);
+                result = fraction1.subtract(fraction2);
                 break;
 
             case "*":
@@ -71,19 +67,15 @@ public class BFCalculator
                 break;
 
             case "/":
-                 result = fraction1.divide(fraction2);
-                 break;
+                result = fraction1.divide(fraction2);
+                break;
         }
 
         return result;
-    }
+  } // Operator(BigFraction, BigFraction, String)
 
-    public void store (char register)
-    {
-        registerList[(int) register - 97] = this.currentResult;
-    }
-}
+  public void store(char register) {
+    registerList[(int) register - 97] = this.currentResult;
+  } // store(char)
 
-
-
-
+} // class BFCalculator

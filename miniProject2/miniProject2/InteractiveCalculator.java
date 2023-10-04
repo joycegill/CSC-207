@@ -3,64 +3,53 @@ package miniProject2;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class InteractiveCalculator 
-{
-    public static void main (String[]args) throws Exception
-    {
+public class InteractiveCalculator {
+    public static void main(String[] args) throws Exception {
         BFCalculator calc = new BFCalculator();
-        PrintWriter pen = new PrintWriter(System.out, true);;
+        PrintWriter pen = new PrintWriter(System.out, true);
+        ;
 
         // Take in input
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         // Quit once user enters "QUIT"
-        while(!input.equalsIgnoreCase("QUIT"))
-        {
+        while (!input.equalsIgnoreCase("QUIT")) {
             // Store
-            if(input.contains("STORE"))
-            {
+            if (input.contains("STORE")) {
                 String arr[] = input.split(" ");
-                if(arr.length == 2)
-                {
+                if (arr.length == 2) {
                     char register[] = arr[1].toCharArray();
- 
+
                     // Correct variable name and type
-                    if(register.length == 1)
-                    {
+                    if (register.length == 1) {
                         calc.store(register[0]);
                     }
- 
+
                     // Incorrect variable type
-                    else
-                    {
+                    else {
                         scanner.close();
                         throw new Exception("Error: incorrect variable type");
                     }
                 }
- 
-                 // Incorrect number of inputs
-                else
-                {
+
+                // Incorrect number of inputs
+                else {
                     scanner.close();
                     throw new Exception("Error: incorrect number of inputs");
                 }
             }
 
             // Evaluate
-            else
-            {
+            else {
                 BigFraction num = calc.evaluate(input);
                 pen.println(num);
             }
             input = scanner.nextLine();
         }
-        
+
         // Close stream
         scanner.close();
         pen.close();
-    }    
+    }
 }
-
-
-

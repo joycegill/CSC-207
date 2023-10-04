@@ -2,6 +2,12 @@ package MiniProject1;
 
 import java.io.*;
 
+/**
+ * Allows users to encode and decode text through the Vigenere Cipher. 
+ * 
+ * @author Joyce Gill
+ */
+
 public class VigenereCipher {
   public static void main(String[] args) {
     PrintWriter pen = new PrintWriter(System.out, true);
@@ -23,12 +29,12 @@ public class VigenereCipher {
 
     // If arg[0] is equal to encode, encode arg[1]
     else if (args[0].equals("encode")) {
-      encodeVigenereCipher(args[1], args[2]);
+      edVigenereCipher("encode", args[1], args[2]);
     }
 
     // If arg[0] is equal to decode, decode arg[1]
     else if (args[0].equals("decode")) {
-      decodeVigenereCipher(args[1], args[2]);
+      edVigenereCipher("decode", args[1], args[2]);
     }
 
     // Check that the user has entered the correct type of parameters
@@ -56,53 +62,48 @@ public class VigenereCipher {
 
   /** Helper to check that the plaintext doesn't pass the scope (lowercase letters) */
   public static int check(int ascii) {
-    if (ascii < 97) {
+    if (ascii < 'a') {
       ascii += 26;
-    } else if (ascii > 122) {
+    } else if (ascii > 'z') {
       ascii -= 26;
     }
     return ascii;
   } // check(int)
 
-  /** Helper to encode a plaintext using Vigenere Cipher */
-  public static void encodeVigenereCipher(String plaintext, String keyword) {
+  /** Helper to encode & decode a plaintext using Vigenere Cipher */
+  public static void edVigenereCipher(String cipher, String plaintext, String keyword) {
     PrintWriter pen = new PrintWriter(System.out, true);
-    keyword = keylengthener(plaintext, keyword);
-    String encode = "";
+
+    keyword = keylengthener(plaintext, keyword); // make sure plaintext & keyword are the same length
+    
+    String newText = "";
+    int x;
 
     // Traverse through every letter in the plaintext
     for (int i = 0; i < plaintext.length(); i++) {
-      int x = (plaintext.charAt(i) + keyword.charAt(i)) % 26;
+      if (cipher.equals("encode")) {
+        x = (plaintext.charAt(i) + keyword.charAt(i)) % 26;
 
-      // Make letters equal to the ASCII code (lowercase)
-      x += 85;
+        // Make letters equal to the ASCII code (lowercase)
+        x += 'U';
 
-      // Call helper check
-      x = check(x);
+        // Call helper check
+        x = check(x);
 
-      encode += (char) (x);
-    }
-    pen.println(encode);
-  } // encodeVigenereCipher (String, String)
+        newText += (char) (x);
+      } // if user says to encode
+      else { 
+        x = (plaintext.charAt(i) - keyword.charAt(i)) % 26;
 
-  /** Helper to decode a plaintext using Vigenere Cipher */
-  public static void decodeVigenereCipher(String plaintext, String keyword) {
-    PrintWriter pen = new PrintWriter(System.out, true);
-    keyword = keylengthener(plaintext, keyword);
-    String decode = "";
+        // Make letters equal to the ASCII code (lowercase)
+        x += 'a';
 
-    // Traverse through every letter in the plaintext
-    for (int i = 0; i < plaintext.length(); i++) {
-      int x = (plaintext.charAt(i) - keyword.charAt(i)) % 26;
+        // Call helper check
+        x = check(x);
 
-      // Make letters equal to the ASCII code (lowercase)
-      x += 97;
-
-      // Call helper check
-      x = check(x);
-
-      decode += (char) (x);
-    }
-    pen.println(decode);
-  } // decodeVigenereCipher(String, String)
+        newText += (char) (x);
+      } // if user says to decode
+    } // traverse through the entire given text
+    pen.println(newText);
+  } // edVigenereCipher (String, String, String)
 } // class VigenereCipher

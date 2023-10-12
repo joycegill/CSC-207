@@ -15,6 +15,7 @@ public class TextBlockTests {
   TextBlock lineTest = new TextLine("Hello World");
   TextBlock boxTest = new BoxedBlock("Hello World");
 
+  @Test
   /* Test the truncated class */
   public void truncateTest() {
     try { 

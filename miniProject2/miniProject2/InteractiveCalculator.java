@@ -3,11 +3,17 @@ package miniProject2;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * Repeatedly reads in a line the user types, uses a BFCalculator to compute the result, 
+ * and prints the result for the user.
+ * 
+ * @author Joyce Gill
+ */
+
 public class InteractiveCalculator {
     public static void main(String[] args) throws Exception {
         BFCalculator calc = new BFCalculator();
         PrintWriter pen = new PrintWriter(System.out, true);
-        ;
 
         // Take in input
         Scanner scanner = new Scanner(System.in);

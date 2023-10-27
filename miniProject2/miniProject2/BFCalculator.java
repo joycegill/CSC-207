@@ -4,78 +4,82 @@ import java.util.*;
 import java.math.*;
 import java.io.*;
 
-public class BFCalculator {
-  BigFraction currentResult;
-  BigFraction[] registerList = new BigFraction[26];
+/**
+ * The primary workhorse
+ * Includes the two (non-static) methods evaluate and store
+ * 
+ * @author Joyce Gill
+ */
 
+public class BFCalculator {
+  // Final result
+  BigFraction result = null;
+
+  // Dictionary of the registers
+  Dictionary<Character, BigFraction> regDict = new Hashtable<Character, BigFraction>();
+
+  /* Evaluates an expression, ignoring priority */
   public BigFraction evaluate (String exp)
   {
-        PrintWriter pen = new PrintWriter(System.out, true);
-        String input[] = exp.split(" ");
+    // String array of all inputs
+    String input[] = exp.split(" ");
+    
+    // If expression contains an incorrect number of arguments 
+    if (input.length % 2 == 0) {
+      System.err.println("Error: expression contains two numbers/registers in a row.");
+    } 
 
-        String[] numbers = new String[input.length / 2];
-        String[] operators = new String[input.length / 2 + 1];
+    // The current result
+    BigFraction current = getVal(input[0]);
 
-        for (int i = 0; i < numbers.length; i++)
-        {
-            numbers[i] = input[i*2];
-            if (i < numbers.length-1)
-            {
-                operators[i] = input[i*2+1];
-            }
-        }
+    // Traverse through input
+    for (int i = 1; i < input.length - 1; i += 2) {
+      // Next Fraction
+      BigFraction next = getVal(input[i + 1]);
 
+      // Compute operation
+      switch (input[i]) {
+        case "+":
+          current = current.add(next);
+          break;
+        case "-":
+          current = current.subtract(next);
+          break;
+        case "*":
+          current = current.multiply(next);
+          break;
+        case "/":
+          current = current.divide(next);
+          break;
+        default:
+          System.err.println("Error: invalid operation.");
+      } // switch (input[i])
+    }
 
+    // Return simplified result
+    result = current.simplify(current); 
+    return result;
+  } // evaluate(String)
 
-        if (numbers.length > 1)
-        {
-            for (int j = 0; j < numbers.length-1; j++)
-            {
-                char register = numbers[j+1].charAt(0);
-                BigFraction nextFraction;
-
-                if(not a letter) // Create a function to check if it's not a letter later
-                {
-                    nextFraction = new BigFraction (numbers[j+1]);
-                }
-                else
-                {
-                    if (stored) // Create a function to check if it has been stored later
-                    {
-                        nextFraction = registerList[(int) register-97];
-                    }
-                }
-                currentResult = Operator(this.currentResult, nextFraction, operators[j]);
-            }
-        }
-        return (simplify(currentResult));
-  }
-
-  public BigFraction Operator(BigFraction fraction1, BigFraction fraction2, String operators) {
-        BigFraction result = null;
-        switch (operators) {
-            case "+":
-                result = fraction1.add(fraction2);
-                break;
-
-            case "-":
-                result = fraction1.subtract(fraction2);
-                break;
-
-            case "*":
-                result = fraction1.multiply(fraction2);
-                break;
-
-            case "/":
-                result = fraction1.divide(fraction2);
-                break;
-        }
-
-        return result;
-  } // Operator(BigFraction, BigFraction, String)
+    
+  public BigFraction getVal(String exp) {
+    // If it is a register
+    if ((Character.isLowerCase(exp.charAt(0)))) {
+      return regDict.get(exp.charAt(0));
+    } 
+    else {
+      return new BigFraction(exp);
+    }
+  } // getFraction(String)
 
   public void store(char register) {
-    registerList[(int) register - 97] = this.currentResult;
+    // If the register is not a valid char
+    if (result == null || !(Character.isLowerCase(register))) {
+      System.err.println("Error: invalid register.");
+    }
+    // Otherwise store 
+    else {
+      regDict.put(register, result);
+    }
   } // store(char)
-
 } // class BFCalculator

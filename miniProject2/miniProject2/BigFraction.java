@@ -2,6 +2,12 @@ package miniProject2;
 
 import java.math.*;
 
+/**
+ * An extended version of the Fraction class we worked on in the lab
+ * 
+ * @author Joyce Gill
+ */
+
 public class BigFraction {
   // The numerator of the fraction. Can be positive, zero or negative.
   BigInteger num;
@@ -21,14 +27,24 @@ public class BigFraction {
     this.denom = BigInteger.valueOf(denom);
   }
 
+  // Build a new fraction with only numerator num
+  public BigFraction(BigInteger num) {
+    this.num = num;
+    this.denom = BigInteger.valueOf(1);
+  }
+
   // Build a new fraction by parsing a string
   public BigFraction(String str) throws IllegalStateException {
     String[] tempVar = str.split("/");
-
-    if (tempVar.length == 1) {
+    if(tempVar.length == 1){
       this.num = BigInteger.valueOf(Integer.parseInt(tempVar[0]));
-    } else {
-      throw new IllegalStateException("Wrong fraction format!");
+      this.denom = BigInteger.valueOf(1);
+      return;
+    }
+    try {
+      this.num = BigInteger.valueOf(Integer.parseInt(tempVar[0]));
+    } catch (Exception e) {
+      throw new IllegalStateException("Wrong fraction format!"); 
     }
     Integer numer;
     Integer denomin;
@@ -76,7 +92,7 @@ public class BigFraction {
     return BigInteger.valueOf(1);
   }
 
-  // Simply fractions
+  // Simplify fractions
   public BigFraction simplify(BigFraction simpMe) {
     BigInteger resultNumerator;
     BigInteger resultDenominator;
@@ -84,8 +100,8 @@ public class BigFraction {
 
     resultNumerator = simpMe.num.divide(gcd);
     resultDenominator = simpMe.denom.divide(gcd);
-
-    // Return simplified fraction if needed
+    
+    // Return simplified fraction
     return new BigFraction(resultNumerator, resultDenominator);
   }
 
@@ -174,6 +190,10 @@ public class BigFraction {
       return "0";
     }
 
+    // When result is a whole number
+    if (this.denom.equals(BigInteger.ONE)) {
+      return this.num.toString();
+    }
     // When result is nonzero
     return this.num + "/" + this.denom;
   }

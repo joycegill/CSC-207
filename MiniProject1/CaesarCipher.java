@@ -62,24 +62,27 @@ public class CaesarCipher {
 
     // Encrypt using every letter of the alphabet
     for (int i = 0; i <= 25; i++) {
+      // Loop through the given plaintext
       for (int j = 0; j < plaintext.length(); j++) {
+        // If the user says to encode
         if (cipher.equals("encode")) {
           ch = (char) (((int) plaintext.charAt(j) + i - 'a') % 26 + 'a');
-        } // if the user says to encode
+        } // if 
+        // if the user says to decode
         else {
           ch = (char) (((int) plaintext.charAt(j) - i - 'a') % 26 + 'a');
-        } // if the user says to decode
+        } // else
 
         // Call helper check
         ch = check(ch);
 
         result[j] = ch;
-      } // for loop through the given plaintext
+      } // for 
       // Conver result to string & print
       newText = new String(result);
       pen.printf("n = %d: %s", i, newText);
       pen.println();
-    } // for loop through every letter of the alphabet
+    } // for
   } // edCaesarCipher(String, String)
 
 } // class CaesarCipher
